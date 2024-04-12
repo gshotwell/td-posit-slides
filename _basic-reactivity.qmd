@@ -1,0 +1,333 @@
+## Start
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot"];
+  M [label="Dist Plot"];
+
+  C -> Sc [style=invis];
+  Sl -> Sc [style=invis];
+  Sl -> M [style=invis];
+}
+```
+
+## Draw metric plot
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style=filled, fillcolor=orange];
+  M [label="Dist Plot"];
+
+  C -> Sc [style=invis];
+  Sl -> Sc [style=invis];
+  Sl -> M [style=invis];
+}
+```
+
+## Get inputs
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style=filled, fillcolor=orange];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M [style=invis];
+}
+```
+
+## Draw dist plot
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot", style=filled,  fillcolor=orange];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M [style=invis];
+}
+```
+
+## Get inputs
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot", style=filled,  fillcolor=orange];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+
+
+## Complete graph
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+
+
+## Account input changes
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector", style="filled", fillcolor="orange"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot"];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+
+## Invalidate
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style="filled", fillcolor="orange"];
+  M [label="Dist Plot", style="filled", fillcolor="orange"];
+
+  C -> Sc [style=invis];
+  Sl -> Sc [style=invis];
+  Sl -> M [style=invis];
+}
+```
+
+## Forget dependencies
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot"];
+  M [label="Dist Plot"];
+
+  C -> Sc [style=invis];
+  Sl -> Sc [style=invis];
+  Sl -> M [style=invis];
+}
+```
+
+## Draw metric plot
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot" style="filled", fillcolor="orange"];
+  M [label="Dist Plot"];
+
+  C -> Sc [style=invis];
+  Sl -> Sc [style=invis];
+  Sl -> M [style=invis];
+}
+```
+
+
+## Get inputs
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style=filled, fillcolor=orange];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M [style=invis];
+}
+```
+
+## Draw dist plot
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot", style=filled,  fillcolor=orange];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M [style=invis];
+}
+```
+
+## Get inputs
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot", style=filled,  fillcolor=orange];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+
+
+## Complete graph
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+## Metric input changes
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector", style="filled", fillcolor="orange"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", ];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+
+## Invalidate downstream
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style="filled", fillcolor="orange"];
+  M [label="Dist Plot"];
+
+  C -> Sc [style="invis"];
+  Sl -> Sc [style="invis"];
+  Sl -> M;
+}
+```
+
+## Draw metric plot
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style="filled", fillcolor="orange"];
+  M [label="Dist Plot"];
+
+  C -> Sc [style="invis"];
+  Sl -> Sc [style="invis"];
+  Sl -> M;
+}
+```
+
+## Get inputs
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot", style="filled", fillcolor="orange"];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+
+## Complete graph
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Metric\nSelector"];
+  Sl [label="Account\nSelector"];
+  node [shape=ellipse];
+  Sc [label="Metric Plot"];
+  M [label="Dist Plot"];
+
+  C -> Sc;
+  Sl -> Sc;
+  Sl -> M;
+}
+```
+

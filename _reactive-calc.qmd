@@ -1,0 +1,645 @@
+## Initial state
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval"];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Generate Model Scores
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval", style = "filled", fillcolor="orange"];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Get filtered Reactive Calc
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon" style = "filled", fillcolor="orange"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Get Account input
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account", style = "filled", fillcolor="orange"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F;
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Get Sample Reactive Calc
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon", style = "filled", fillcolor="orange"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Get Other inputs
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates", style = "filled", fillcolor="orange"];
+  S [label="Sample Size", style = "filled", fillcolor="orange"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F ;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Plot API Responses
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval", style = "filled", fillcolor="orange"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Filter returned from cache
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon", style="filled", fillcolor="lightblue"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Account changes
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account", style = "filled", fillcolor="orange"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Invalidate Filtered
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account", ];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon", style = "filled", fillcolor="orange"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F [style=invis];
+  Sa -> F ;
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Invalidate Plots
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval", style = "filled", fillcolor="orange"];
+  P1 [label="API Response", shape="oval", style = "filled", fillcolor="orange"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Calculate model scores
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval", style = "filled", fillcolor="orange"];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Get filtered calc
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon", style = "filled", fillcolor="orange"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Get New Account
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Sample returned from cache
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon", style = "filled", fillcolor="lightblue"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Calculate API Response
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval", style="filled", fillcolor="orange"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F ;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Filter returned from cache
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon", style = "filled", fillcolor="lightblue"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Sample size changes
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size", style = "filled", fillcolor="orange"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Invalidate Sample
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon", style = "filled", fillcolor="orange"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Invalidate Filter
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon", style = "filled", fillcolor="orange"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1;
+}
+```
+
+## Invalidate plots
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon",];
+  P2 [label="Model Scores", shape="oval",  style = "filled", fillcolor="orange"];
+  P1 [label="API Response", shape="oval",  style = "filled", fillcolor="orange"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Initial state
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval"];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Generate Model Scores
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval", style = "filled", fillcolor="orange"];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2 [style=invis];
+  F -> P1 [style=invis];
+}
+```
+
+## Get filtered Reactive Calc
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon" style = "filled", fillcolor="orange"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F [style=invis];
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Get Account input
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account", style = "filled", fillcolor="orange"];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F;
+  Sa -> F [style=invis];
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Calculate Sample Reactive Calc
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon", style = "filled", fillcolor="orange"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa [style=invis];
+  S -> Sa [style=invis];
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Get Other inputs
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates", style = "filled", fillcolor="orange"];
+  S [label="Sample Size", style = "filled", fillcolor="orange"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F ;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Plot API Responses
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval", style = "filled", fillcolor="orange"];
+  
+  D -> Sa ;
+  S -> Sa ;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1 [style=invis];
+}
+```
+
+## Filter returned from cache
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  D [label="Dates"];
+  S [label="Sample Size"];
+  A [label="Account",];
+  Sa [label="Sample", shape = "hexagon"];
+  F [label="Filtered", shape = "hexagon", style="filled", fillcolor="lightblue"];
+  P2 [label="Model Scores", shape="oval",];
+  P1 [label="API Response", shape="oval"];
+  
+  D -> Sa;
+  S -> Sa;
+  A -> F;
+  Sa -> F;
+  F -> P2;
+  F -> P1;
+}
+```

@@ -1,0 +1,417 @@
+---
+title: "Effortless web apps with Shiny"
+format: 
+  revealjs:
+    incremental: true
+filters: 
+    - shinylive
+editor:
+  render-on-save: true
+---
+```{python}
+# | echo: false
+from helpers import include_shiny_folder
+
+
+def include_qmd(path):
+    with open(path, "r") as file:
+        print(file.read())
+
+
+```
+
+
+## What is Shiny?
+- Efficient applications without the headaches
+- Easy enough for rapid prototyping
+- Everything you need to build a product
+
+## Example: Model training
+
+## Dash implementation
+
+```{.python}
+@app.callback(
+    Output("metric-plot", "figure"),
+    [Input("account-dropdown", "value"), Input("metric-dropdown", "value")],
+)
+def update_metric_plot(selected_account, selected_metric):
+    df_val = load_data()
+    df_filt = df_val[df_val["account"] == selected_account]
+    if selected_metric == "ROC Curve":
+        return plot_auc_curve(df_filt, "is_electronics", "training_score"
+        )
+    else:
+        return plot_precision_recall_curve(df_filt, "is_electronics", "training_score")
+
+
+@app.callback(Output("score-dist-plot", "figure"), [Input("account-dropdown", "value")])
+def update_score_distribution_plot(selected_account):
+    df_val = load_data()
+    df_filt = df_val[df_val["account"] == selected_account]
+    return plot_score_distribution(df_filt)
+```
+
+## Manual callback management
+```{.python code-line-numbers="1-4,15"}
+@app.callback(
+    Output("metric-plot", "figure"),
+    [Input("account-dropdown", "value"), Input("metric-dropdown", "value")],
+)
+def update_metric_plot(selected_account, selected_metric):
+    df_val = load_data()
+    df_filt = df_val[df_val["account"] == selected_account]
+    if selected_metric == "ROC Curve":
+        return plot_auc_curve(df_filt, "is_electronics", "training_score"
+        )
+    else:
+        return plot_precision_recall_curve(df_filt, "is_electronics", "training_score")
+
+
+@app.callback(Output("score-dist-plot", "figure"), [Input("account-dropdown", "value")])
+def update_score_distribution_plot(selected_account):
+    df_val = load_data()
+    df_filt = df_val[df_val["account"] == selected_account]
+    return plot_score_distribution(df_filt)
+```
+
+## Data read twice
+```{.python code-line-numbers="6,17"}
+@app.callback(
+    Output("metric-plot", "figure"),
+    [Input("account-dropdown", "value"), Input("metric-dropdown", "value")],
+)
+def update_metric_plot(selected_account, selected_metric):
+    df_val = load_data()
+    df_filt = df_val[df_val["account"] == selected_account]
+    if selected_metric == "ROC Curve":
+        return plot_auc_curve(df_filt, "is_electronics", "training_score"
+        )
+    else:
+        return plot_precision_recall_curve(df_filt, "is_electronics", "training_score")
+
+
+@app.callback(Output("score-dist-plot", "figure"), [Input("account-dropdown", "value")])
+def update_score_distribution_plot(selected_account):
+    df_val = load_data()
+    df_filt = df_val[df_val["account"] == selected_account]
+    return plot_score_distribution(df_filt)
+```
+
+
+## How did Shiny do that?
+
+```{.python}
+    @render_plotly
+    def score_dist():
+        df_filtered = df[df["account"] == input.account()]
+        return dist_plot(df_filtered)
+
+    @render_plotly
+    def metric():
+        df_filtered = df[df["account"] == input.account()]
+        if input.metric() == "ROC Curve":
+            return plot_auc_curve(df_filtered, "is_electronics", "training_score")
+        else:
+            return plot_precision_recall_curve(
+                df_filtered, "is_electronics", "training_score"
+            )
+```
+
+- We told Shiny _what_ to do
+- We didn't tell Shiny _when_ to do it
+
+## How do other frameworks work?
+
+- Streamlit: re-render everything everywhere all the time
+- Dash/Gradio/Solara: Event-handling
+
+## Event driven programming
+
+- Manually define which behaviour triggers callback function
+- You have to do it
+- Callbacks are often triggered too frequently
+- Easy to get wrong
+- Hard to tell when you've gotten it wrong
+
+##
+![](imgs/slack-activity.png)
+
+## What's a better way?
+
+![Generic DAG](imgs/generic-dag.png)
+
+## Shiny's Strategy
+
+- Infer the relationships between components 
+- Build a computation graph
+- Use graph to minimally re-execute your application
+
+## {background-image="imgs/larry-suspicion.gif"}
+
+## Does that really work?
+
+- For this to work, the inference has to be 100% reliable
+- Only useful if you understand and trust the inference
+
+
+## Runtime tracing
+- Watch what components ask for
+- Keep track of those relationships
+- Use relationships to trigger rendering 
+
+
+## User asks for output
+
+```{.python code-line-numbers="5"}
+from shiny import Inputs, Outputs, Session, App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 20),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+
+app = App(app_ui, server)
+```
+
+## Rendering function is triggered
+
+```{.python code-line-numbers="10"}
+from shiny import Inputs, Outputs, Session, App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 20),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+
+app = App(app_ui, server)
+```
+
+## Renderer needs input
+
+```{.python code-line-numbers="11"}
+from shiny import Inputs, Outputs, Session, App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 20),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+
+app = App(app_ui, server)
+```
+
+## Input retrieved from UI
+
+```{.python code-line-numbers="4"}
+from shiny import Inputs, Outputs, Session, App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 20),
+    ui.output_text_verbatim("txt"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+
+app = App(app_ui, server)
+```
+
+## Reactive graph
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  S [label="Input"];
+  node [shape=ellipse];
+  Sc [label="Output"];
+
+  S -> Sc;
+}
+```
+## Drawing our application graph
+
+```{python}
+# | output: "asis"
+include_qmd("_basic-reactivity.qmd")
+```
+
+## Graphs can change
+```{python}
+# | echo: false
+# | output: asis
+include_shiny_folder(
+    "apps/flip-flop",
+    components="viewer",
+    viewer_height=500,
+)
+```
+
+```{python}
+# | output: "asis"
+include_qmd("_flip-flop-app.qmd")
+```
+
+
+## Reactivity scales
+
+- Every Shiny app uses this pattern
+- Works for dynamic UIs
+- Lazy and efficient
+
+# Reactive calculations
+
+## Saving and reusing calculated values
+
+- So far we've been working with shallow reactive graphs
+    - Inputs are directly consumed by rendering functions
+    - Limited
+    - Not that efficient
+- `@reactive.calc` creates calculations whose results are used by other functions
+- This adds depth to the reactive graph
+
+## Example: Model Monitoring
+
+## What do I want?
+1) Query the database for a sample between dates
+2) Filter sample by account name in memory
+3) Send that data to the plotting functions
+4) Cache the results of 1 and 2
+5) Invalidate a cache only when upstream inputs change
+6) Do no thinking or work
+
+## What do I want?
+
+::: nonincremental
+1) Query the database for a sample between dates
+2) Filter sample by account id in memory
+3) Send that data to the plotting functions
+4) **Cache the results of 1 and 2**
+5) **Invalidate a cache only when upstream inputs change**
+6) **Do no thinking or work**
+:::
+
+## How would you do this in Dash?
+- One callback to query database
+- Use `dcc.Store` to cache serialized data
+- Other callbacks read from that cache
+
+## Caching requires thinking
+- Is it being invalidated properly?
+- Can my object be serialized?
+- Is information lost when I serialize it?
+- Is writing to cache performant?
+- Am I storing too many copies?
+
+## Reactive calculations
+- Defined with the `@reactive.calc` decorator
+- Caches its value, so it's cheap to call repeatedly
+- Adds a node to the reactive graph
+  - Discards cached value when upstream nodes invalidate
+  - Notifies downstream nodes when it invalidates
+
+
+## Reactive Calculation to the rescue
+```{.python}
+   @reactive.calc
+    def sampled_data():
+        start_date, end_date = input.dates()
+        start_date = pd.to_datetime(start_date)
+        end_date = pd.to_datetime(end_date)
+        return query_db(start_date, end_date, input.sample_size())
+
+    @reactive.calc()
+    def filtered_data():
+        filtered = sampled_data()
+        filtered = filtered.loc[filtered["account"] == input.account()]
+        return filtered
+
+    @render.plot():
+    def scores():
+        return plot_scores(filtered_data())
+```
+
+
+## Reactive Calculation to the rescue
+```{.python code-line-numbers="2,9,10,16"}
+   @reactive.calc
+    def sampled_data():
+        start_date, end_date = input.dates()
+        start_date = pd.to_datetime(start_date)
+        end_date = pd.to_datetime(end_date)
+        return query_db(start_date, end_date, input.sample_size())
+
+    @reactive.calc()
+    def filtered_data():
+        filtered = sampled_data()
+        filtered = filtered.loc[filtered["account"] == input.account()]
+        return filtered
+
+    @render.plot():
+    def scores():
+        return plot_scores(filtered_data())
+```
+
+```{python}
+# | output: asis
+
+include_qmd("_reactive-calc.qmd")
+```
+
+
+## Other patterns
+
+- Trigger callbacks with `reactive.effect`
+- Control execution with `reactive.event`
+- Use `reactive.isolate` to prevent cycles
+- Include data in reactive graph with `reactive.poll`
+- Include time with `reactive.invalidate_later`
+- Store things in variables with `reactive.value`
+
+
+## Summary
+
+- Shiny creates performant apps with very little work
+- Its algorithm is elegant, but not magic
+- Reactivity can handle simple and complex applications
+
+## Thank you!
+
+```{python}
+import qrcode
+
+qr = qrcode.QRCode(
+    version=3, box_size=20, border=10, error_correction=qrcode.constants.ERROR_CORRECT_H
+)
+data = "https://github.com/gshotwell/td-posit-slides"
+qr.add_data(data)
+qr.make(fit=True)
+img = qr.make_image(fill_color="black", back_color="white")
+img.save("qr_code.png")
+```
+
+### [https://github.com/gshotwell/td-posit-slides](https://github.com/gshotwell/td-posit-slides)
+![](qr_code.png)
+
+[Shiny for Python](https://shiny.posit.co/py/)

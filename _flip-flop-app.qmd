@@ -1,0 +1,336 @@
+
+
+
+## Different graphs   
+
+```{.python}
+@render.text
+def txt():
+    random_number = random.randint(0, 100)
+    if input.choice() == "Slider 1":
+        return (
+            f"Slider 1 is {input.slider_1()}, "
+            f"a random number is {random_number}"
+        )
+    else: 
+        return (
+            f"Slider 2 is {input.slider_2()}, "
+            f"a random number is {random_number}"
+        )
+```
+
+## Initial state
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T  [style=invis];
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Calculate Text
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval", style="filled", fillcolor="orange"];
+
+  C -> T  [style=invis];
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Fetch button value
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons", style="filled", fillcolor="orange"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Fetch Slider 1
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1", style="filled", fillcolor="orange"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Complete
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Slider 2 changes
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2", style="filled", fillcolor="orange"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Nothing happens
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Slider 1 changes
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1", style="filled", fillcolor="orange"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Invalidate 
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1", ];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval", style="filled", fillcolor="orange"];
+
+  C -> T [style=invis];
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Calculate Text
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1", ];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval", style="filled", fillcolor="orange"];
+
+  C -> T [style=invis];
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Fetch button value
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons", style="filled", fillcolor="orange"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Fetch Slider 1
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1", style="filled", fillcolor="orange"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Complete
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+## Button changes
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons",  style="filled", fillcolor="orange"];
+  S1 [label="Slider 1",];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T ;
+  S2 -> T [style=invis];
+}
+```
+
+
+## Invalidate
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons",];
+  S1 [label="Slider 1",];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval", style="filled", fillcolor="orange"];
+
+  C -> T [style=invis];
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Calculate Text
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons",];
+  S1 [label="Slider 1",];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval", style="filled", fillcolor="orange"];
+
+  C -> T [style=invis];
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Fetch button value
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons", style="filled", fillcolor="orange"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T [style=invis];
+  S2 -> T [style=invis];
+}
+```
+
+## Fetch Slider 2!
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2", style="filled", fillcolor="orange"];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T [style=invis];
+  S2 -> T ;
+}
+```
+
+## Different graph
+
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape=box];
+  C [label="Buttons"];
+  S1 [label="Slider 1"];
+  S2 [label="Slider 2",];
+  T [label="Text Output", shape="oval"];
+
+  C -> T ;
+  S1 -> T [style=invis];
+  S2 -> T ;
+}
+```
