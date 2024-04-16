@@ -12,7 +12,8 @@
 <script src="site_libs/quarto-contrib/shinylive-0.2.8/shinylive/load-shinylive-sw.js" type="module"></script>
 <script src="site_libs/quarto-contrib/shinylive-0.2.8/shinylive/run-python-blocks.js" type="module"></script>
 <link href="site_libs/quarto-contrib/shinylive-0.2.8/shinylive/shinylive.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet"><meta charset="utf-8">
+<link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet">
+<script src="site_libs/quarto-contrib/posit_slides/posit-slides.js"></script><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.553">
 
   <title>. - Effortless web apps with Shiny</title>
@@ -394,14 +395,14 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" data-background-color="black" data-background-image="site_libs/quarto-contrib/quarto-project/positslides/assets/backgrounds/title-slide-option-1.png" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">Effortless web apps with Shiny</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="what-is-shiny" class="slide level2">
+<section class="slide level2">
 <h2>What is Shiny?</h2>
 <ul>
 <li class="fragment">Efficient applications without the headaches</li>
@@ -409,10 +410,10 @@
 <li class="fragment">Everything you need to build a product</li>
 </ul>
 </section>
-<section id="example-model-training" class="slide level2">
+<section class="slide level2">
 <h2>Example: Model training</h2>
 </section>
-<section id="dash-implementation" class="slide level2">
+<section class="slide level2">
 <h2>Dash implementation</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="at">@app.callback</span>(</span>
 <span id="cb1-2"><a></a>    Output(<span class="st">"metric-plot"</span>, <span class="st">"figure"</span>),</span>
@@ -434,7 +435,7 @@
 <span id="cb1-18"><a></a>    df_filt <span class="op">=</span> df_val[df_val[<span class="st">"account"</span>] <span class="op">==</span> selected_account]</span>
 <span id="cb1-19"><a></a>    <span class="cf">return</span> plot_score_distribution(df_filt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="manual-callback-management" class="slide level2">
+<section class="slide level2">
 <h2>Manual callback management</h2>
 <div class="sourceCode" id="cb2" data-code-line-numbers="1-4,15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="at">@app.callback</span>(</span>
 <span id="cb2-2"><a></a>    Output(<span class="st">"metric-plot"</span>, <span class="st">"figure"</span>),</span>
@@ -456,7 +457,7 @@
 <span id="cb2-18"><a></a>    df_filt <span class="op">=</span> df_val[df_val[<span class="st">"account"</span>] <span class="op">==</span> selected_account]</span>
 <span id="cb2-19"><a></a>    <span class="cf">return</span> plot_score_distribution(df_filt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="data-read-twice" class="slide level2">
+<section class="slide level2">
 <h2>Data read twice</h2>
 <div class="sourceCode" id="cb3" data-code-line-numbers="6,17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="at">@app.callback</span>(</span>
 <span id="cb3-2"><a></a>    Output(<span class="st">"metric-plot"</span>, <span class="st">"figure"</span>),</span>
@@ -478,7 +479,7 @@
 <span id="cb3-18"><a></a>    df_filt <span class="op">=</span> df_val[df_val[<span class="st">"account"</span>] <span class="op">==</span> selected_account]</span>
 <span id="cb3-19"><a></a>    <span class="cf">return</span> plot_score_distribution(df_filt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="how-did-shiny-do-that" class="slide level2">
+<section class="slide level2">
 <h2>How did Shiny do that?</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>    <span class="at">@render_plotly</span></span>
 <span id="cb4-2"><a></a>    <span class="kw">def</span> score_dist():</span>
@@ -499,14 +500,14 @@
 <li class="fragment">We didn’t tell Shiny <em>when</em> to do it</li>
 </ul>
 </section>
-<section id="how-do-other-frameworks-work" class="slide level2">
+<section class="slide level2">
 <h2>How do other frameworks work?</h2>
 <ul>
 <li class="fragment">Streamlit: re-render everything everywhere all the time</li>
 <li class="fragment">Dash/Gradio/Solara: Event-handling</li>
 </ul>
 </section>
-<section id="event-driven-programming" class="slide level2">
+<section class="slide level2">
 <h2>Event driven programming</h2>
 <ul>
 <li class="fragment">Manually define which behaviour triggers callback function</li>
@@ -515,15 +516,15 @@
 <li class="fragment">Hard to tell when you’ve gotten it wrong</li>
 </ul>
 </section>
-<section id="section" class="slide level2">
+<section class="slide level2">
 <h2></h2>
 
 <img data-src="imgs/slack-activity.png" class="r-stretch"></section>
-<section id="whats-a-better-way" class="slide level2">
+<section class="slide level2">
 <h2>What’s a better way?</h2>
 
 <img data-src="imgs/generic-dag.png" class="r-stretch quarto-figure-center"><p class="caption">Generic DAG</p></section>
-<section id="shinys-strategy" class="slide level2">
+<section class="slide level2">
 <h2>Shiny’s Strategy</h2>
 <ul>
 <li class="fragment">Infer the relationships between components</li>
@@ -531,17 +532,17 @@
 <li class="fragment">Use graph to minimally re-execute your application</li>
 </ul>
 </section>
-<section id="section-1" class="slide level2" data-background-image="imgs/larry-suspicion.gif">
+<section class="slide level2" data-background-image="imgs/larry-suspicion.gif">
 <h2></h2>
 </section>
-<section id="does-that-really-work" class="slide level2">
+<section class="slide level2">
 <h2>Does that really work?</h2>
 <ul>
 <li class="fragment">For this to work, the inference has to be 100% reliable</li>
 <li class="fragment">Only useful if you understand and trust the inference</li>
 </ul>
 </section>
-<section id="runtime-tracing" class="slide level2">
+<section class="slide level2">
 <h2>Runtime tracing</h2>
 <ul>
 <li class="fragment">Watch what components ask for</li>
@@ -549,7 +550,7 @@
 <li class="fragment">Use relationships to trigger rendering</li>
 </ul>
 </section>
-<section id="rendering-function-is-triggered" class="slide level2">
+<section class="slide level2">
 <h2>Rendering function is triggered</h2>
 <div class="sourceCode" id="cb5" data-code-line-numbers="6-8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> shiny.express <span class="im">import</span> render, ui, <span class="bu">input</span></span>
 <span id="cb5-2"><a></a></span>
@@ -560,7 +561,7 @@
 <span id="cb5-7"><a></a><span class="kw">def</span> txt():</span>
 <span id="cb5-8"><a></a>    <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="renderer-needs-input" class="slide level2">
+<section class="slide level2">
 <h2>Renderer needs input</h2>
 <div class="sourceCode" id="cb6" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> shiny.express <span class="im">import</span> render, ui, <span class="bu">input</span></span>
 <span id="cb6-2"><a></a></span>
@@ -571,7 +572,7 @@
 <span id="cb6-7"><a></a><span class="kw">def</span> txt():</span>
 <span id="cb6-8"><a></a>    <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="get-input-value" class="slide level2">
+<section class="slide level2">
 <h2>Get input value</h2>
 <div class="sourceCode" id="cb7" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> shiny.express <span class="im">import</span> render, ui, <span class="bu">input</span></span>
 <span id="cb7-2"><a></a></span>
@@ -582,7 +583,7 @@
 <span id="cb7-7"><a></a><span class="kw">def</span> txt():</span>
 <span id="cb7-8"><a></a>    <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="reactive-graph" class="slide level2">
+<section class="slide level2">
 <h2>Reactive graph</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -618,10 +619,10 @@
 </div>
 </div>
 </section>
-<section id="drawing-our-application-graph" class="slide level2">
+<section class="slide level2">
 <h2>Drawing our application graph</h2>
 </section>
-<section id="start" class="slide level2">
+<section class="slide level2">
 <h2>Start</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -668,7 +669,7 @@
 </div>
 </div>
 </section>
-<section id="draw-metric-plot" class="slide level2">
+<section class="slide level2">
 <h2>Draw metric plot</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -715,7 +716,7 @@
 </div>
 </div>
 </section>
-<section id="get-inputs" class="slide level2">
+<section class="slide level2">
 <h2>Get inputs</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -772,7 +773,7 @@
 </div>
 </div>
 </section>
-<section id="draw-dist-plot" class="slide level2">
+<section class="slide level2">
 <h2>Draw dist plot</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -829,7 +830,7 @@
 </div>
 </div>
 </section>
-<section id="get-inputs-1" class="slide level2">
+<section class="slide level2">
 <h2>Get inputs</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -891,7 +892,7 @@
 </div>
 </div>
 </section>
-<section id="complete-graph" class="slide level2">
+<section class="slide level2">
 <h2>Complete graph</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -953,7 +954,7 @@
 </div>
 </div>
 </section>
-<section id="account-input-changes" class="slide level2">
+<section class="slide level2">
 <h2>Account input changes</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1015,7 +1016,7 @@
 </div>
 </div>
 </section>
-<section id="invalidate" class="slide level2">
+<section class="slide level2">
 <h2>Invalidate</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1062,7 +1063,7 @@
 </div>
 </div>
 </section>
-<section id="forget-dependencies" class="slide level2">
+<section class="slide level2">
 <h2>Forget dependencies</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1109,7 +1110,7 @@
 </div>
 </div>
 </section>
-<section id="draw-metric-plot-1" class="slide level2">
+<section class="slide level2">
 <h2>Draw metric plot</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1156,7 +1157,7 @@
 </div>
 </div>
 </section>
-<section id="get-inputs-2" class="slide level2">
+<section class="slide level2">
 <h2>Get inputs</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1213,7 +1214,7 @@
 </div>
 </div>
 </section>
-<section id="draw-dist-plot-1" class="slide level2">
+<section class="slide level2">
 <h2>Draw dist plot</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1270,7 +1271,7 @@
 </div>
 </div>
 </section>
-<section id="get-inputs-3" class="slide level2">
+<section class="slide level2">
 <h2>Get inputs</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1332,7 +1333,7 @@
 </div>
 </div>
 </section>
-<section id="complete-graph-1" class="slide level2">
+<section class="slide level2">
 <h2>Complete graph</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1394,7 +1395,7 @@
 </div>
 </div>
 </section>
-<section id="metric-input-changes" class="slide level2">
+<section class="slide level2">
 <h2>Metric input changes</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1456,7 +1457,7 @@
 </div>
 </div>
 </section>
-<section id="invalidate-downstream" class="slide level2">
+<section class="slide level2">
 <h2>Invalidate downstream</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1508,7 +1509,7 @@
 </div>
 </div>
 </section>
-<section id="draw-metric-plot-2" class="slide level2">
+<section class="slide level2">
 <h2>Draw metric plot</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1560,7 +1561,7 @@
 </div>
 </div>
 </section>
-<section id="get-inputs-4" class="slide level2">
+<section class="slide level2">
 <h2>Get inputs</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1622,7 +1623,7 @@
 </div>
 </div>
 </section>
-<section id="complete-graph-2" class="slide level2">
+<section class="slide level2">
 <h2>Complete graph</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1684,7 +1685,7 @@
 </div>
 </div>
 </section>
-<section id="graphs-can-change" class="slide level2">
+<section class="slide level2">
 <h2>Graphs can change</h2>
 <div class="sourceCode" id="cb8" data-engine="python"><pre class="sourceCode numberSource shinylive-python number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a></a>#| standalone: true</span>
 <span id="cb8-2"><a></a>#| components: [viewer]</span>
@@ -1717,7 +1718,7 @@
 <span id="cb8-29"><a></a></span>
 <span id="cb8-30"><a></a>app = App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="different-graphs" class="slide level2">
+<section class="slide level2">
 <h2>Different graphs</h2>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="at">@render.text</span></span>
 <span id="cb9-2"><a></a><span class="kw">def</span> txt():</span>
@@ -1733,7 +1734,7 @@
 <span id="cb9-12"><a></a>            <span class="ss">f"a random number is </span><span class="sc">{</span>random_number<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb9-13"><a></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="initial-state" class="slide level2">
+<section class="slide level2">
 <h2>Initial state</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1778,7 +1779,7 @@
 </div>
 </div>
 </section>
-<section id="calculate-text" class="slide level2">
+<section class="slide level2">
 <h2>Calculate Text</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1823,7 +1824,7 @@
 </div>
 </div>
 </section>
-<section id="fetch-button-value" class="slide level2">
+<section class="slide level2">
 <h2>Fetch button value</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1873,7 +1874,7 @@
 </div>
 </div>
 </section>
-<section id="fetch-slider-1" class="slide level2">
+<section class="slide level2">
 <h2>Fetch Slider 1</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1928,7 +1929,7 @@
 </div>
 </div>
 </section>
-<section id="complete" class="slide level2">
+<section class="slide level2">
 <h2>Complete</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1983,7 +1984,7 @@
 </div>
 </div>
 </section>
-<section id="slider-2-changes" class="slide level2">
+<section class="slide level2">
 <h2>Slider 2 changes</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2038,7 +2039,7 @@
 </div>
 </div>
 </section>
-<section id="nothing-happens" class="slide level2">
+<section class="slide level2">
 <h2>Nothing happens</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2093,7 +2094,7 @@
 </div>
 </div>
 </section>
-<section id="slider-1-changes" class="slide level2">
+<section class="slide level2">
 <h2>Slider 1 changes</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2148,7 +2149,7 @@
 </div>
 </div>
 </section>
-<section id="invalidate-1" class="slide level2">
+<section class="slide level2">
 <h2>Invalidate</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2193,7 +2194,7 @@
 </div>
 </div>
 </section>
-<section id="calculate-text-1" class="slide level2">
+<section class="slide level2">
 <h2>Calculate Text</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2238,7 +2239,7 @@
 </div>
 </div>
 </section>
-<section id="fetch-button-value-1" class="slide level2">
+<section class="slide level2">
 <h2>Fetch button value</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2288,7 +2289,7 @@
 </div>
 </div>
 </section>
-<section id="fetch-slider-1-1" class="slide level2">
+<section class="slide level2">
 <h2>Fetch Slider 1</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2343,7 +2344,7 @@
 </div>
 </div>
 </section>
-<section id="complete-1" class="slide level2">
+<section class="slide level2">
 <h2>Complete</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2398,7 +2399,7 @@
 </div>
 </div>
 </section>
-<section id="button-changes" class="slide level2">
+<section class="slide level2">
 <h2>Button changes</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2453,7 +2454,7 @@
 </div>
 </div>
 </section>
-<section id="invalidate-2" class="slide level2">
+<section class="slide level2">
 <h2>Invalidate</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2498,7 +2499,7 @@
 </div>
 </div>
 </section>
-<section id="calculate-text-2" class="slide level2">
+<section class="slide level2">
 <h2>Calculate Text</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2543,7 +2544,7 @@
 </div>
 </div>
 </section>
-<section id="fetch-button-value-2" class="slide level2">
+<section class="slide level2">
 <h2>Fetch button value</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2593,7 +2594,7 @@
 </div>
 </div>
 </section>
-<section id="fetch-slider-2" class="slide level2">
+<section class="slide level2">
 <h2>Fetch Slider 2!</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2648,7 +2649,7 @@
 </div>
 </div>
 </section>
-<section id="different-graph" class="slide level2">
+<section class="slide level2">
 <h2>Different graph</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -2703,7 +2704,7 @@
 </div>
 </div>
 </section>
-<section id="reactivity-scales" class="slide level2">
+<section class="slide level2">
 <h2>Reactivity scales</h2>
 <ul>
 <li class="fragment">Every Shiny app uses this pattern</li>
@@ -2712,7 +2713,7 @@
 </ul>
 </section>
 <section>
-<section id="reactive-calculations" class="title-slide slide level1 center">
+<section class="title-slide slide level1 center">
 <h1>Reactive calculations</h1>
 
 </section>
@@ -5266,6 +5267,9 @@
 
 </div>
 </div>
+<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden">
+
+</div>
 </section></section>
     </div>
   </div>
@@ -5443,9 +5447,9 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1600,
 
-        height: 700,
+        height: 900,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
