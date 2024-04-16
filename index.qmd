@@ -130,7 +130,6 @@ def update_score_distribution_plot(selected_account):
 
 - Manually define which behaviour triggers callback function
 - You have to do it
-- Callbacks are often triggered too frequently
 - Easy to get wrong
 - Hard to tell when you've gotten it wrong
 
@@ -161,81 +160,44 @@ def update_score_distribution_plot(selected_account):
 - Use relationships to trigger rendering 
 
 
-## User asks for output
-
-```{.python code-line-numbers="5"}
-from shiny import Inputs, Outputs, Session, App, render, ui
-
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 0, 100, 20),
-    ui.output_text_verbatim("txt"),
-)
-
-def server(input: Inputs, output: Outputs, session: Session):
-    @render.text
-    def txt():
-        return f"n*2 is {input.n() * 2}"
-
-
-app = App(app_ui, server)
-```
 
 ## Rendering function is triggered
 
-```{.python code-line-numbers="10"}
-from shiny import Inputs, Outputs, Session, App, render, ui
+```{.python code-line-numbers="6-8"}
+from shiny.express import render, ui, input
 
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 0, 100, 20),
-    ui.output_text_verbatim("txt"),
-)
-
-def server(input: Inputs, output: Outputs, session: Session):
-    @render.text
-    def txt():
-        return f"n*2 is {input.n() * 2}"
+ui.input_slider("n", "N", 0, 100, 20)
 
 
-app = App(app_ui, server)
+@render.text
+def txt():
+    return f"n*2 is {input.n() * 2}"
 ```
 
 ## Renderer needs input
 
-```{.python code-line-numbers="11"}
-from shiny import Inputs, Outputs, Session, App, render, ui
+```{.python code-line-numbers="8"}
+from shiny.express import render, ui, input
 
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 0, 100, 20),
-    ui.output_text_verbatim("txt"),
-)
-
-def server(input: Inputs, output: Outputs, session: Session):
-    @render.text
-    def txt():
-        return f"n*2 is {input.n() * 2}"
+ui.input_slider("n", "N", 0, 100, 20)
 
 
-app = App(app_ui, server)
+@render.text
+def txt():
+    return f"n*2 is {input.n() * 2}"
 ```
 
-## Input retrieved from UI
+## Get input value
 
-```{.python code-line-numbers="4"}
-from shiny import Inputs, Outputs, Session, App, render, ui
+```{.python code-line-numbers="3"}
+from shiny.express import render, ui, input
 
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 0, 100, 20),
-    ui.output_text_verbatim("txt"),
-)
+ui.input_slider("n", "N", 0, 100, 20)
 
 
-def server(input: Inputs, output: Outputs, session: Session):
-    @render.text
-    def txt():
-        return f"n*2 is {input.n() * 2}"
-
-
-app = App(app_ui, server)
+@render.text
+def txt():
+    return f"n*2 is {input.n() * 2}"
 ```
 
 ## Reactive graph
@@ -285,9 +247,7 @@ include_qmd("_flip-flop-app.qmd")
 ## Saving and reusing calculated values
 
 - So far we've been working with shallow reactive graphs
-    - Inputs are directly consumed by rendering functions
-    - Limited
-    - Not that efficient
+- Inputs are directly consumed by rendering functions
 - `@reactive.calc` creates calculations whose results are used by other functions
 - This adds depth to the reactive graph
 
@@ -317,17 +277,18 @@ include_qmd("_flip-flop-app.qmd")
 - Use `dcc.Store` to cache serialized data
 - Other callbacks read from that cache
 
-## Caching requires thinking
+## Manual caching requires thinking
 - Is it being invalidated properly?
 - Can my object be serialized?
 - Is information lost when I serialize it?
 - Is writing to cache performant?
 - Am I storing too many copies?
+- Am I sending too much data to the client?
 
 ## Reactive calculations
 - Defined with the `@reactive.calc` decorator
 - Caches its value, so it's cheap to call repeatedly
-- Adds a node to the reactive graph
+- Perfect cache invalidation through reactivity
   - Discards cached value when upstream nodes invalidate
   - Notifies downstream nodes when it invalidates
 
@@ -372,6 +333,16 @@ include_qmd("_flip-flop-app.qmd")
     def scores():
         return plot_scores(filtered_data())
 ```
+## Graphing reactive.calc
+```{dot}
+digraph {
+  rankdir=TD;
+  node [shape="hexagon", style="filled", height=1, width=2];
+  F [label="Calculated", fillcolor="orange"];
+  F [label="Calculated", fillcolor="orange"];
+  G [label="Retrieved \n from cache", fillcolor="lightblue"];
+}
+```
 
 ```{python}
 # | output: asis
@@ -393,8 +364,8 @@ include_qmd("_reactive-calc.qmd")
 ## Summary
 
 - Shiny creates performant apps with very little work
-- Its algorithm is elegant, but not magic
-- Reactivity can handle simple and complex applications
+- Reactivity is elegant, but not magic
+- It lets you effortlessly build simple and complex applications
 
 ## Thank you!
 
