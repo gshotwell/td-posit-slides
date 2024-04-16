@@ -166,3 +166,5 @@ cython_debug/
 index_files/
 _site/
 _reactive-calc_files/
+
+/.luarc.json
