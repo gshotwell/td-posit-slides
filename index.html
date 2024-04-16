@@ -13,9 +13,9 @@
 <script src="site_libs/quarto-contrib/shinylive-0.2.8/shinylive/run-python-blocks.js" type="module"></script>
 <link href="site_libs/quarto-contrib/shinylive-0.2.8/shinylive/shinylive.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.29">
+  <meta name="generator" content="quarto-1.4.553">
 
-  <title>. – Effortless web apps with Shiny</title>
+  <title>. - Effortless web apps with Shiny</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -74,7 +74,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.cf { color: #003b4f; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -88,7 +88,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.kw { color: #003b4f; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -511,7 +511,6 @@
 <ul>
 <li class="fragment">Manually define which behaviour triggers callback function</li>
 <li class="fragment">You have to do it</li>
-<li class="fragment">Callbacks are often triggered too frequently</li>
 <li class="fragment">Easy to get wrong</li>
 <li class="fragment">Hard to tell when you’ve gotten it wrong</li>
 </ul>
@@ -550,74 +549,38 @@
 <li class="fragment">Use relationships to trigger rendering</li>
 </ul>
 </section>
-<section id="user-asks-for-output" class="slide level2">
-<h2>User asks for output</h2>
-<div class="sourceCode" id="cb5" data-code-line-numbers="5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> shiny <span class="im">import</span> Inputs, Outputs, Session, App, render, ui</span>
-<span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a>app_ui <span class="op">=</span> ui.page_fluid(</span>
-<span id="cb5-4"><a></a>    ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>),</span>
-<span id="cb5-5"><a></a>    ui.output_text_verbatim(<span class="st">"txt"</span>),</span>
-<span id="cb5-6"><a></a>)</span>
-<span id="cb5-7"><a></a></span>
-<span id="cb5-8"><a></a><span class="kw">def</span> server(<span class="bu">input</span>: Inputs, output: Outputs, session: Session):</span>
-<span id="cb5-9"><a></a>    <span class="at">@render.text</span></span>
-<span id="cb5-10"><a></a>    <span class="kw">def</span> txt():</span>
-<span id="cb5-11"><a></a>        <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb5-12"><a></a></span>
-<span id="cb5-13"><a></a></span>
-<span id="cb5-14"><a></a>app <span class="op">=</span> App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 <section id="rendering-function-is-triggered" class="slide level2">
 <h2>Rendering function is triggered</h2>
-<div class="sourceCode" id="cb6" data-code-line-numbers="10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> shiny <span class="im">import</span> Inputs, Outputs, Session, App, render, ui</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>app_ui <span class="op">=</span> ui.page_fluid(</span>
-<span id="cb6-4"><a></a>    ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>),</span>
-<span id="cb6-5"><a></a>    ui.output_text_verbatim(<span class="st">"txt"</span>),</span>
-<span id="cb6-6"><a></a>)</span>
-<span id="cb6-7"><a></a></span>
-<span id="cb6-8"><a></a><span class="kw">def</span> server(<span class="bu">input</span>: Inputs, output: Outputs, session: Session):</span>
-<span id="cb6-9"><a></a>    <span class="at">@render.text</span></span>
-<span id="cb6-10"><a></a>    <span class="kw">def</span> txt():</span>
-<span id="cb6-11"><a></a>        <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb6-12"><a></a></span>
-<span id="cb6-13"><a></a></span>
-<span id="cb6-14"><a></a>app <span class="op">=</span> App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5" data-code-line-numbers="6-8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> shiny.express <span class="im">import</span> render, ui, <span class="bu">input</span></span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a>ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a><span class="at">@render.text</span></span>
+<span id="cb5-7"><a></a><span class="kw">def</span> txt():</span>
+<span id="cb5-8"><a></a>    <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="renderer-needs-input" class="slide level2">
 <h2>Renderer needs input</h2>
-<div class="sourceCode" id="cb7" data-code-line-numbers="11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> shiny <span class="im">import</span> Inputs, Outputs, Session, App, render, ui</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>app_ui <span class="op">=</span> ui.page_fluid(</span>
-<span id="cb7-4"><a></a>    ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>),</span>
-<span id="cb7-5"><a></a>    ui.output_text_verbatim(<span class="st">"txt"</span>),</span>
-<span id="cb7-6"><a></a>)</span>
-<span id="cb7-7"><a></a></span>
-<span id="cb7-8"><a></a><span class="kw">def</span> server(<span class="bu">input</span>: Inputs, output: Outputs, session: Session):</span>
-<span id="cb7-9"><a></a>    <span class="at">@render.text</span></span>
-<span id="cb7-10"><a></a>    <span class="kw">def</span> txt():</span>
-<span id="cb7-11"><a></a>        <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb7-12"><a></a></span>
-<span id="cb7-13"><a></a></span>
-<span id="cb7-14"><a></a>app <span class="op">=</span> App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> shiny.express <span class="im">import</span> render, ui, <span class="bu">input</span></span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb6-4"><a></a></span>
+<span id="cb6-5"><a></a></span>
+<span id="cb6-6"><a></a><span class="at">@render.text</span></span>
+<span id="cb6-7"><a></a><span class="kw">def</span> txt():</span>
+<span id="cb6-8"><a></a>    <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="input-retrieved-from-ui" class="slide level2">
-<h2>Input retrieved from UI</h2>
-<div class="sourceCode" id="cb8" data-code-line-numbers="4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> shiny <span class="im">import</span> Inputs, Outputs, Session, App, render, ui</span>
-<span id="cb8-2"><a></a></span>
-<span id="cb8-3"><a></a>app_ui <span class="op">=</span> ui.page_fluid(</span>
-<span id="cb8-4"><a></a>    ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>),</span>
-<span id="cb8-5"><a></a>    ui.output_text_verbatim(<span class="st">"txt"</span>),</span>
-<span id="cb8-6"><a></a>)</span>
-<span id="cb8-7"><a></a></span>
-<span id="cb8-8"><a></a></span>
-<span id="cb8-9"><a></a><span class="kw">def</span> server(<span class="bu">input</span>: Inputs, output: Outputs, session: Session):</span>
-<span id="cb8-10"><a></a>    <span class="at">@render.text</span></span>
-<span id="cb8-11"><a></a>    <span class="kw">def</span> txt():</span>
-<span id="cb8-12"><a></a>        <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb8-13"><a></a></span>
-<span id="cb8-14"><a></a></span>
-<span id="cb8-15"><a></a>app <span class="op">=</span> App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="get-input-value" class="slide level2">
+<h2>Get input value</h2>
+<div class="sourceCode" id="cb7" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> shiny.express <span class="im">import</span> render, ui, <span class="bu">input</span></span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a>ui.input_slider(<span class="st">"n"</span>, <span class="st">"N"</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a></span>
+<span id="cb7-6"><a></a><span class="at">@render.text</span></span>
+<span id="cb7-7"><a></a><span class="kw">def</span> txt():</span>
+<span id="cb7-8"><a></a>    <span class="cf">return</span> <span class="ss">f"n*2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>n() <span class="op">*</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="reactive-graph" class="slide level2">
 <h2>Reactive graph</h2>
@@ -1723,52 +1686,52 @@
 </section>
 <section id="graphs-can-change" class="slide level2">
 <h2>Graphs can change</h2>
-<div class="sourceCode" id="cb9" data-engine="python"><pre class="sourceCode numberSource shinylive-python number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a></a>#| standalone: true</span>
-<span id="cb9-2"><a></a>#| components: [viewer]</span>
-<span id="cb9-3"><a></a>#| layout: horizontal</span>
-<span id="cb9-4"><a></a>#| viewerHeight: 500</span>
-<span id="cb9-5"><a></a>from shiny import Inputs, Outputs, Session, App, reactive, render, req, ui</span>
-<span id="cb9-6"><a></a>import random</span>
-<span id="cb9-7"><a></a></span>
-<span id="cb9-8"><a></a>app_ui = ui.page_sidebar(</span>
-<span id="cb9-9"><a></a>    ui.sidebar(</span>
-<span id="cb9-10"><a></a>        ui.input_radio_buttons(</span>
-<span id="cb9-11"><a></a>            "choice", "Which slider?", choices=["Slider 1", "Slider 2"]</span>
-<span id="cb9-12"><a></a>        ),</span>
-<span id="cb9-13"><a></a>        ui.input_slider("slider_1", "Slider 1", 0, 100, 15),</span>
-<span id="cb9-14"><a></a>        ui.input_slider("slider_2", "Slider 2", 0, 100, 45),</span>
-<span id="cb9-15"><a></a>    ),</span>
-<span id="cb9-16"><a></a>    ui.card({"style": "font-size: larger"}, ui.output_text("txt")),</span>
-<span id="cb9-17"><a></a>)</span>
-<span id="cb9-18"><a></a></span>
-<span id="cb9-19"><a></a></span>
-<span id="cb9-20"><a></a>def server(input: Inputs, output: Outputs, session: Session):</span>
-<span id="cb9-21"><a></a>    @render.text</span>
-<span id="cb9-22"><a></a>    def txt():</span>
-<span id="cb9-23"><a></a>        random_number = random.randint(0, 100)</span>
-<span id="cb9-24"><a></a>        if input.choice() == "Slider 1":</span>
-<span id="cb9-25"><a></a>            return f"Slider 1 is {input.slider_1()}, a random number is {random_number}"</span>
-<span id="cb9-26"><a></a>        else:</span>
-<span id="cb9-27"><a></a>            return f"Slider 2 is {input.slider_2()}, a random number is {random_number}"</span>
-<span id="cb9-28"><a></a></span>
-<span id="cb9-29"><a></a></span>
-<span id="cb9-30"><a></a>app = App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8" data-engine="python"><pre class="sourceCode numberSource shinylive-python number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a></a>#| standalone: true</span>
+<span id="cb8-2"><a></a>#| components: [viewer]</span>
+<span id="cb8-3"><a></a>#| layout: horizontal</span>
+<span id="cb8-4"><a></a>#| viewerHeight: 500</span>
+<span id="cb8-5"><a></a>from shiny import Inputs, Outputs, Session, App, reactive, render, req, ui</span>
+<span id="cb8-6"><a></a>import random</span>
+<span id="cb8-7"><a></a></span>
+<span id="cb8-8"><a></a>app_ui = ui.page_sidebar(</span>
+<span id="cb8-9"><a></a>    ui.sidebar(</span>
+<span id="cb8-10"><a></a>        ui.input_radio_buttons(</span>
+<span id="cb8-11"><a></a>            "choice", "Which slider?", choices=["Slider 1", "Slider 2"]</span>
+<span id="cb8-12"><a></a>        ),</span>
+<span id="cb8-13"><a></a>        ui.input_slider("slider_1", "Slider 1", 0, 100, 15),</span>
+<span id="cb8-14"><a></a>        ui.input_slider("slider_2", "Slider 2", 0, 100, 45),</span>
+<span id="cb8-15"><a></a>    ),</span>
+<span id="cb8-16"><a></a>    ui.card({"style": "font-size: larger"}, ui.output_text("txt")),</span>
+<span id="cb8-17"><a></a>)</span>
+<span id="cb8-18"><a></a></span>
+<span id="cb8-19"><a></a></span>
+<span id="cb8-20"><a></a>def server(input: Inputs, output: Outputs, session: Session):</span>
+<span id="cb8-21"><a></a>    @render.text</span>
+<span id="cb8-22"><a></a>    def txt():</span>
+<span id="cb8-23"><a></a>        random_number = random.randint(0, 100)</span>
+<span id="cb8-24"><a></a>        if input.choice() == "Slider 1":</span>
+<span id="cb8-25"><a></a>            return f"Slider 1 is {input.slider_1()}, a random number is {random_number}"</span>
+<span id="cb8-26"><a></a>        else:</span>
+<span id="cb8-27"><a></a>            return f"Slider 2 is {input.slider_2()}, a random number is {random_number}"</span>
+<span id="cb8-28"><a></a></span>
+<span id="cb8-29"><a></a></span>
+<span id="cb8-30"><a></a>app = App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="different-graphs" class="slide level2">
 <h2>Different graphs</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="at">@render.text</span></span>
-<span id="cb10-2"><a></a><span class="kw">def</span> txt():</span>
-<span id="cb10-3"><a></a>    random_number <span class="op">=</span> random.randint(<span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb10-4"><a></a>    <span class="cf">if</span> <span class="bu">input</span>.choice() <span class="op">==</span> <span class="st">"Slider 1"</span>:</span>
-<span id="cb10-5"><a></a>        <span class="cf">return</span> (</span>
-<span id="cb10-6"><a></a>            <span class="ss">f"Slider 1 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>slider_1()<span class="sc">}</span><span class="ss">, "</span></span>
-<span id="cb10-7"><a></a>            <span class="ss">f"a random number is </span><span class="sc">{</span>random_number<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb10-8"><a></a>        )</span>
-<span id="cb10-9"><a></a>    <span class="cf">else</span>: </span>
-<span id="cb10-10"><a></a>        <span class="cf">return</span> (</span>
-<span id="cb10-11"><a></a>            <span class="ss">f"Slider 2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>slider_2()<span class="sc">}</span><span class="ss">, "</span></span>
-<span id="cb10-12"><a></a>            <span class="ss">f"a random number is </span><span class="sc">{</span>random_number<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb10-13"><a></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="at">@render.text</span></span>
+<span id="cb9-2"><a></a><span class="kw">def</span> txt():</span>
+<span id="cb9-3"><a></a>    random_number <span class="op">=</span> random.randint(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb9-4"><a></a>    <span class="cf">if</span> <span class="bu">input</span>.choice() <span class="op">==</span> <span class="st">"Slider 1"</span>:</span>
+<span id="cb9-5"><a></a>        <span class="cf">return</span> (</span>
+<span id="cb9-6"><a></a>            <span class="ss">f"Slider 1 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>slider_1()<span class="sc">}</span><span class="ss">, "</span></span>
+<span id="cb9-7"><a></a>            <span class="ss">f"a random number is </span><span class="sc">{</span>random_number<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb9-8"><a></a>        )</span>
+<span id="cb9-9"><a></a>    <span class="cf">else</span>: </span>
+<span id="cb9-10"><a></a>        <span class="cf">return</span> (</span>
+<span id="cb9-11"><a></a>            <span class="ss">f"Slider 2 is </span><span class="sc">{</span><span class="bu">input</span><span class="sc">.</span>slider_2()<span class="sc">}</span><span class="ss">, "</span></span>
+<span id="cb9-12"><a></a>            <span class="ss">f"a random number is </span><span class="sc">{</span>random_number<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb9-13"><a></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="initial-state" class="slide level2">
 <h2>Initial state</h2>
@@ -2756,12 +2719,8 @@
 <section id="saving-and-reusing-calculated-values" class="slide level2">
 <h2>Saving and reusing calculated values</h2>
 <ul>
-<li class="fragment">So far we’ve been working with shallow reactive graphs
-<ul>
+<li class="fragment">So far we’ve been working with shallow reactive graphs</li>
 <li class="fragment">Inputs are directly consumed by rendering functions</li>
-<li class="fragment">Limited</li>
-<li class="fragment">Not that efficient</li>
-</ul></li>
 <li class="fragment"><code>@reactive.calc</code> creates calculations whose results are used by other functions</li>
 <li class="fragment">This adds depth to the reactive graph</li>
 </ul>
@@ -2801,14 +2760,15 @@
 <li class="fragment">Other callbacks read from that cache</li>
 </ul>
 </section>
-<section id="caching-requires-thinking" class="slide level2">
-<h2>Caching requires thinking</h2>
+<section id="manual-caching-requires-thinking" class="slide level2">
+<h2>Manual caching requires thinking</h2>
 <ul>
 <li class="fragment">Is it being invalidated properly?</li>
 <li class="fragment">Can my object be serialized?</li>
 <li class="fragment">Is information lost when I serialize it?</li>
 <li class="fragment">Is writing to cache performant?</li>
 <li class="fragment">Am I storing too many copies?</li>
+<li class="fragment">Am I sending too much data to the client?</li>
 </ul>
 </section>
 <section id="reactive-calculations-1" class="slide level2">
@@ -2816,7 +2776,7 @@
 <ul>
 <li class="fragment">Defined with the <code>@reactive.calc</code> decorator</li>
 <li class="fragment">Caches its value, so it’s cheap to call repeatedly</li>
-<li class="fragment">Adds a node to the reactive graph
+<li class="fragment">Perfect cache invalidation through reactivity
 <ul>
 <li class="fragment">Discards cached value when upstream nodes invalidate</li>
 <li class="fragment">Notifies downstream nodes when it invalidates</li>
@@ -2825,7 +2785,26 @@
 </section>
 <section id="reactive-calculation-to-the-rescue" class="slide level2">
 <h2>Reactive Calculation to the rescue</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>   <span class="at">@reactive.calc</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a>   <span class="at">@reactive.calc</span></span>
+<span id="cb10-2"><a></a>    <span class="kw">def</span> sampled_data():</span>
+<span id="cb10-3"><a></a>        start_date, end_date <span class="op">=</span> <span class="bu">input</span>.dates()</span>
+<span id="cb10-4"><a></a>        start_date <span class="op">=</span> pd.to_datetime(start_date)</span>
+<span id="cb10-5"><a></a>        end_date <span class="op">=</span> pd.to_datetime(end_date)</span>
+<span id="cb10-6"><a></a>        <span class="cf">return</span> query_db(start_date, end_date, <span class="bu">input</span>.sample_size())</span>
+<span id="cb10-7"><a></a></span>
+<span id="cb10-8"><a></a>    <span class="at">@reactive.calc</span>()</span>
+<span id="cb10-9"><a></a>    <span class="kw">def</span> filtered_data():</span>
+<span id="cb10-10"><a></a>        filtered <span class="op">=</span> sampled_data()</span>
+<span id="cb10-11"><a></a>        filtered <span class="op">=</span> filtered.loc[filtered[<span class="st">"account"</span>] <span class="op">==</span> <span class="bu">input</span>.account()]</span>
+<span id="cb10-12"><a></a>        <span class="cf">return</span> filtered</span>
+<span id="cb10-13"><a></a></span>
+<span id="cb10-14"><a></a>    <span class="at">@render.plot</span>():</span>
+<span id="cb10-15"><a></a>    <span class="kw">def</span> scores():</span>
+<span id="cb10-16"><a></a>        <span class="cf">return</span> plot_scores(filtered_data())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="reactive-calculation-to-the-rescue-1" class="slide level2">
+<h2>Reactive Calculation to the rescue</h2>
+<div class="sourceCode" id="cb11" data-code-line-numbers="2,9,10,16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>   <span class="at">@reactive.calc</span></span>
 <span id="cb11-2"><a></a>    <span class="kw">def</span> sampled_data():</span>
 <span id="cb11-3"><a></a>        start_date, end_date <span class="op">=</span> <span class="bu">input</span>.dates()</span>
 <span id="cb11-4"><a></a>        start_date <span class="op">=</span> pd.to_datetime(start_date)</span>
@@ -2842,24 +2821,36 @@
 <span id="cb11-15"><a></a>    <span class="kw">def</span> scores():</span>
 <span id="cb11-16"><a></a>        <span class="cf">return</span> plot_scores(filtered_data())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="reactive-calculation-to-the-rescue-1" class="slide level2">
-<h2>Reactive Calculation to the rescue</h2>
-<div class="sourceCode" id="cb12" data-code-line-numbers="2,9,10,16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a>   <span class="at">@reactive.calc</span></span>
-<span id="cb12-2"><a></a>    <span class="kw">def</span> sampled_data():</span>
-<span id="cb12-3"><a></a>        start_date, end_date <span class="op">=</span> <span class="bu">input</span>.dates()</span>
-<span id="cb12-4"><a></a>        start_date <span class="op">=</span> pd.to_datetime(start_date)</span>
-<span id="cb12-5"><a></a>        end_date <span class="op">=</span> pd.to_datetime(end_date)</span>
-<span id="cb12-6"><a></a>        <span class="cf">return</span> query_db(start_date, end_date, <span class="bu">input</span>.sample_size())</span>
-<span id="cb12-7"><a></a></span>
-<span id="cb12-8"><a></a>    <span class="at">@reactive.calc</span>()</span>
-<span id="cb12-9"><a></a>    <span class="kw">def</span> filtered_data():</span>
-<span id="cb12-10"><a></a>        filtered <span class="op">=</span> sampled_data()</span>
-<span id="cb12-11"><a></a>        filtered <span class="op">=</span> filtered.loc[filtered[<span class="st">"account"</span>] <span class="op">==</span> <span class="bu">input</span>.account()]</span>
-<span id="cb12-12"><a></a>        <span class="cf">return</span> filtered</span>
-<span id="cb12-13"><a></a></span>
-<span id="cb12-14"><a></a>    <span class="at">@render.plot</span>():</span>
-<span id="cb12-15"><a></a>    <span class="kw">def</span> scores():</span>
-<span id="cb12-16"><a></a>        <span class="cf">return</span> plot_scores(filtered_data())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="graphing-reactive.calc" class="slide level2">
+<h2>Graphing reactive.calc</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 314.00 80.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 76)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-76 310,-76 310,4 -4,4"></polygon>
+<!-- F -->
+<g id="node1" class="node">
+<title>F</title>
+<polygon fill="orange" stroke="black" points="144,-36 108,-72 36,-72 0,-36 36,0 108,0 144,-36"></polygon>
+<text text-anchor="middle" x="72" y="-31.8" font-family="Times,serif" font-size="14.00">Calculated</text>
+</g>
+<!-- G -->
+<g id="node2" class="node">
+<title>G</title>
+<polygon fill="lightblue" stroke="black" points="306,-36 270,-72 198,-72 162,-36 198,0 270,0 306,-36"></polygon>
+<text text-anchor="middle" x="234" y="-40.2" font-family="Times,serif" font-size="14.00">Retrieved </text>
+<text text-anchor="middle" x="234" y="-23.4" font-family="Times,serif" font-size="14.00"> from cache</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
 <section id="initial-state-1" class="slide level2">
 <h2>Initial state</h2>
@@ -5518,7 +5509,18 @@
         }
         return false;
       }
-      const onCopySuccess = function(e) {
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -5550,37 +5552,15 @@
         }, 1000);
         // clear code selection
         e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
       });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        // For code content inside modals, clipBoardJS needs to be initialized with a container option
-        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
+          var filterRegex = new RegExp("https:\/\/gshotwell\.github\.io\/td-posit-slides\/");
         var isInternal = (href) => {
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {

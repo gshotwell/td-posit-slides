@@ -60,7 +60,7 @@
     "href": "index.html#event-driven-programming",
     "title": "Effortless web apps with Shiny",
     "section": "Event driven programming",
-    "text": "Event driven programming\n\nManually define which behaviour triggers callback function\nYou have to do it\nCallbacks are often triggered too frequently\nEasy to get wrong\nHard to tell when you’ve gotten it wrong"
+    "text": "Event driven programming\n\nManually define which behaviour triggers callback function\nYou have to do it\nEasy to get wrong\nHard to tell when you’ve gotten it wrong"
   },
   {
     "objectID": "index.html#whats-a-better-way",
@@ -91,32 +91,25 @@
     "text": "Runtime tracing\n\nWatch what components ask for\nKeep track of those relationships\nUse relationships to trigger rendering"
   },
   {
-    "objectID": "index.html#user-asks-for-output",
-    "href": "index.html#user-asks-for-output",
-    "title": "Effortless web apps with Shiny",
-    "section": "User asks for output",
-    "text": "User asks for output\nfrom shiny import Inputs, Outputs, Session, App, render, ui\n\napp_ui = ui.page_fluid(\n    ui.input_slider(\"n\", \"N\", 0, 100, 20),\n    ui.output_text_verbatim(\"txt\"),\n)\n\ndef server(input: Inputs, output: Outputs, session: Session):\n    @render.text\n    def txt():\n        return f\"n*2 is {input.n() * 2}\"\n\n\napp = App(app_ui, server)"
-  },
-  {
     "objectID": "index.html#rendering-function-is-triggered",
     "href": "index.html#rendering-function-is-triggered",
     "title": "Effortless web apps with Shiny",
     "section": "Rendering function is triggered",
-    "text": "Rendering function is triggered\nfrom shiny import Inputs, Outputs, Session, App, render, ui\n\napp_ui = ui.page_fluid(\n    ui.input_slider(\"n\", \"N\", 0, 100, 20),\n    ui.output_text_verbatim(\"txt\"),\n)\n\ndef server(input: Inputs, output: Outputs, session: Session):\n    @render.text\n    def txt():\n        return f\"n*2 is {input.n() * 2}\"\n\n\napp = App(app_ui, server)"
+    "text": "Rendering function is triggered\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
   },
   {
     "objectID": "index.html#renderer-needs-input",
     "href": "index.html#renderer-needs-input",
     "title": "Effortless web apps with Shiny",
     "section": "Renderer needs input",
-    "text": "Renderer needs input\nfrom shiny import Inputs, Outputs, Session, App, render, ui\n\napp_ui = ui.page_fluid(\n    ui.input_slider(\"n\", \"N\", 0, 100, 20),\n    ui.output_text_verbatim(\"txt\"),\n)\n\ndef server(input: Inputs, output: Outputs, session: Session):\n    @render.text\n    def txt():\n        return f\"n*2 is {input.n() * 2}\"\n\n\napp = App(app_ui, server)"
+    "text": "Renderer needs input\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
   },
   {
-    "objectID": "index.html#input-retrieved-from-ui",
-    "href": "index.html#input-retrieved-from-ui",
+    "objectID": "index.html#get-input-value",
+    "href": "index.html#get-input-value",
     "title": "Effortless web apps with Shiny",
-    "section": "Input retrieved from UI",
-    "text": "Input retrieved from UI\nfrom shiny import Inputs, Outputs, Session, App, render, ui\n\napp_ui = ui.page_fluid(\n    ui.input_slider(\"n\", \"N\", 0, 100, 20),\n    ui.output_text_verbatim(\"txt\"),\n)\n\n\ndef server(input: Inputs, output: Outputs, session: Session):\n    @render.text\n    def txt():\n        return f\"n*2 is {input.n() * 2}\"\n\n\napp = App(app_ui, server)"
+    "section": "Get input value",
+    "text": "Get input value\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
   },
   {
     "objectID": "index.html#reactive-graph",
@@ -424,7 +417,7 @@
     "href": "index.html#saving-and-reusing-calculated-values",
     "title": "Effortless web apps with Shiny",
     "section": "Saving and reusing calculated values",
-    "text": "Saving and reusing calculated values\n\nSo far we’ve been working with shallow reactive graphs\n\nInputs are directly consumed by rendering functions\nLimited\nNot that efficient\n\n@reactive.calc creates calculations whose results are used by other functions\nThis adds depth to the reactive graph"
+    "text": "Saving and reusing calculated values\n\nSo far we’ve been working with shallow reactive graphs\nInputs are directly consumed by rendering functions\n@reactive.calc creates calculations whose results are used by other functions\nThis adds depth to the reactive graph"
   },
   {
     "objectID": "index.html#example-model-monitoring",
@@ -455,18 +448,18 @@
     "text": "How would you do this in Dash?\n\nOne callback to query database\nUse dcc.Store to cache serialized data\nOther callbacks read from that cache"
   },
   {
-    "objectID": "index.html#caching-requires-thinking",
-    "href": "index.html#caching-requires-thinking",
+    "objectID": "index.html#manual-caching-requires-thinking",
+    "href": "index.html#manual-caching-requires-thinking",
     "title": "Effortless web apps with Shiny",
-    "section": "Caching requires thinking",
-    "text": "Caching requires thinking\n\nIs it being invalidated properly?\nCan my object be serialized?\nIs information lost when I serialize it?\nIs writing to cache performant?\nAm I storing too many copies?"
+    "section": "Manual caching requires thinking",
+    "text": "Manual caching requires thinking\n\nIs it being invalidated properly?\nCan my object be serialized?\nIs information lost when I serialize it?\nIs writing to cache performant?\nAm I storing too many copies?\nAm I sending too much data to the client?"
   },
   {
     "objectID": "index.html#reactive-calculations-1",
     "href": "index.html#reactive-calculations-1",
     "title": "Effortless web apps with Shiny",
     "section": "Reactive calculations",
-    "text": "Reactive calculations\n\nDefined with the @reactive.calc decorator\nCaches its value, so it’s cheap to call repeatedly\nAdds a node to the reactive graph\n\nDiscards cached value when upstream nodes invalidate\nNotifies downstream nodes when it invalidates"
+    "text": "Reactive calculations\n\nDefined with the @reactive.calc decorator\nCaches its value, so it’s cheap to call repeatedly\nPerfect cache invalidation through reactivity\n\nDiscards cached value when upstream nodes invalidate\nNotifies downstream nodes when it invalidates"
   },
   {
     "objectID": "index.html#reactive-calculation-to-the-rescue",
@@ -481,6 +474,13 @@
     "title": "Effortless web apps with Shiny",
     "section": "Reactive Calculation to the rescue",
     "text": "Reactive Calculation to the rescue\n   @reactive.calc\n    def sampled_data():\n        start_date, end_date = input.dates()\n        start_date = pd.to_datetime(start_date)\n        end_date = pd.to_datetime(end_date)\n        return query_db(start_date, end_date, input.sample_size())\n\n    @reactive.calc()\n    def filtered_data():\n        filtered = sampled_data()\n        filtered = filtered.loc[filtered[\"account\"] == input.account()]\n        return filtered\n\n    @render.plot():\n    def scores():\n        return plot_scores(filtered_data())"
+  },
+  {
+    "objectID": "index.html#graphing-reactive.calc",
+    "href": "index.html#graphing-reactive.calc",
+    "title": "Effortless web apps with Shiny",
+    "section": "Graphing reactive.calc",
+    "text": "Graphing reactive.calc\n\n\n\n\n\n\n\n\n\n\nF\n\nCalculated\n\n\n\nG\n\nRetrieved \n from cache"
   },
   {
     "objectID": "index.html#initial-state-1",
