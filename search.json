@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
     "objectID": "index.html#saving-and-reusing-calculated-values",
     "href": "index.html#saving-and-reusing-calculated-values",
     "title": "Effortless web apps with Shiny",
@@ -40,6 +33,13 @@
     "title": "Effortless web apps with Shiny",
     "section": "How would you do this in Dash?",
     "text": "How would you do this in Dash?\n\nOne callback to query database\nUse dcc.Store to cache serialized data\nOther callbacks read from that cache"
+  },
+  {
+    "objectID": "index.html#what-do-i-want-2",
+    "href": "index.html#what-do-i-want-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "What do I want?",
+    "text": "What do I want?\n\n\nQuery the database for a sample between dates\nFilter sample by account id in memory\nSend that data to the plotting functions\nCache the results of 1 and 2\nInvalidate a cache only when upstream inputs change\nDo no thinking or work"
   },
   {
     "objectID": "index.html#manual-caching-requires-thinking",
@@ -299,6 +299,13 @@
     "title": "Effortless web apps with Shiny",
     "section": "Thank you!",
     "text": "Thank you!\nhttps://github.com/gshotwell/td-posit-slides\n\nShiny for Python"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
   },
   {
     "objectID": "data-prep.html",
