@@ -142,9 +142,6 @@ def update_score_distribution_plot(selected_account):
 - Easy to get wrong
 - Hard to tell when you've gotten it wrong
 
-##
-![](imgs/slack-activity.png)
-
 ## What's a better way?
 
 ![Generic DAG](imgs/generic-dag.png)
@@ -168,7 +165,30 @@ def update_score_distribution_plot(selected_account):
 - Keep track of those relationships
 - Use relationships to trigger rendering 
 
+## Simplest app
 
+```{python}
+# | echo: false
+# | output: asis
+include_shiny_folder(
+    "apps/express",
+    components="viewer",
+    viewer_height=500,
+)
+```
+
+## Application code
+
+```{.python}
+from shiny.express import render, ui, input
+
+ui.input_slider("n", "N", 0, 100, 20)
+
+
+@render.text
+def txt():
+    return f"n*2 is {input.n() * 2}"
+```
 
 ## Rendering function is triggered
 
@@ -285,6 +305,17 @@ include_qmd("_flip-flop-app.qmd")
 - One callback to query database
 - Use `dcc.Store` to cache serialized data
 - Other callbacks read from that cache
+
+## What do I want?
+
+::: nonincremental
+1) Query the database for a sample between dates
+2) Filter sample by account id in memory
+3) Send that data to the plotting functions
+4) Cache the results of 1 and 2
+5) Invalidate a cache only when upstream inputs change
+6) **Do no thinking or work**
+:::
 
 ## Manual caching requires thinking
 - Is it being invalidated properly?
