@@ -4,18 +4,9 @@ filters:
     - shinylive
 editor:
   render-on-save: true
-  
-title-slide-attributes: 
-  data-background-color: black
-  data-background-image: _extensions/positslides/assets/backgrounds/title-slide-option-1.png
-  data-background-size: contain
 format:
-  positslides-revealjs: 
+  revealjs: 
     incremental: true
-    width: "1600"
-    height: "900"
-    filters:
-      - positslides
 ---
 ```{python}
 # | echo: false
