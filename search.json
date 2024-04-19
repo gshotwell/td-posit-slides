@@ -1,5 +1,425 @@
 [
   {
+    "objectID": "index.html#what-is-shiny",
+    "href": "index.html#what-is-shiny",
+    "title": "Effortless web apps with Shiny",
+    "section": "What is Shiny?",
+    "text": "What is Shiny?\n\nEfficient applications without the headaches\nEasy enough for rapid prototyping\nEverything you need to build a product"
+  },
+  {
+    "objectID": "index.html#example-model-training",
+    "href": "index.html#example-model-training",
+    "title": "Effortless web apps with Shiny",
+    "section": "Example: Model training",
+    "text": "Example: Model training"
+  },
+  {
+    "objectID": "index.html#dash-implementation",
+    "href": "index.html#dash-implementation",
+    "title": "Effortless web apps with Shiny",
+    "section": "Dash implementation",
+    "text": "Dash implementation\n@app.callback(\n    Output(\"metric-plot\", \"figure\"),\n    [Input(\"account-dropdown\", \"value\"), Input(\"metric-dropdown\", \"value\")],\n)\ndef update_metric_plot(selected_account, selected_metric):\n    df_val = load_data()\n    df_filt = df_val[df_val[\"account\"] == selected_account]\n    if selected_metric == \"ROC Curve\":\n        return plot_auc_curve(df_filt, \"is_electronics\", \"training_score\"\n        )\n    else:\n        return plot_precision_recall_curve(df_filt, \"is_electronics\", \"training_score\")\n\n\n@app.callback(Output(\"score-dist-plot\", \"figure\"), [Input(\"account-dropdown\", \"value\")])\ndef update_score_distribution_plot(selected_account):\n    df_val = load_data()\n    df_filt = df_val[df_val[\"account\"] == selected_account]\n    return plot_score_distribution(df_filt)"
+  },
+  {
+    "objectID": "index.html#manual-callback-management",
+    "href": "index.html#manual-callback-management",
+    "title": "Effortless web apps with Shiny",
+    "section": "Manual callback management",
+    "text": "Manual callback management\n@app.callback(\n    Output(\"metric-plot\", \"figure\"),\n    [Input(\"account-dropdown\", \"value\"), Input(\"metric-dropdown\", \"value\")],\n)\ndef update_metric_plot(selected_account, selected_metric):\n    df_val = load_data()\n    df_filt = df_val[df_val[\"account\"] == selected_account]\n    if selected_metric == \"ROC Curve\":\n        return plot_auc_curve(df_filt, \"is_electronics\", \"training_score\"\n        )\n    else:\n        return plot_precision_recall_curve(df_filt, \"is_electronics\", \"training_score\")\n\n\n@app.callback(Output(\"score-dist-plot\", \"figure\"), [Input(\"account-dropdown\", \"value\")])\ndef update_score_distribution_plot(selected_account):\n    df_val = load_data()\n    df_filt = df_val[df_val[\"account\"] == selected_account]\n    return plot_score_distribution(df_filt)"
+  },
+  {
+    "objectID": "index.html#data-read-twice",
+    "href": "index.html#data-read-twice",
+    "title": "Effortless web apps with Shiny",
+    "section": "Data read twice",
+    "text": "Data read twice\n@app.callback(\n    Output(\"metric-plot\", \"figure\"),\n    [Input(\"account-dropdown\", \"value\"), Input(\"metric-dropdown\", \"value\")],\n)\ndef update_metric_plot(selected_account, selected_metric):\n    df_val = load_data()\n    df_filt = df_val[df_val[\"account\"] == selected_account]\n    if selected_metric == \"ROC Curve\":\n        return plot_auc_curve(df_filt, \"is_electronics\", \"training_score\"\n        )\n    else:\n        return plot_precision_recall_curve(df_filt, \"is_electronics\", \"training_score\")\n\n\n@app.callback(Output(\"score-dist-plot\", \"figure\"), [Input(\"account-dropdown\", \"value\")])\ndef update_score_distribution_plot(selected_account):\n    df_val = load_data()\n    df_filt = df_val[df_val[\"account\"] == selected_account]\n    return plot_score_distribution(df_filt)"
+  },
+  {
+    "objectID": "index.html#how-did-shiny-do-that",
+    "href": "index.html#how-did-shiny-do-that",
+    "title": "Effortless web apps with Shiny",
+    "section": "How did Shiny do that?",
+    "text": "How did Shiny do that?\n    @render_plotly\n    def score_dist():\n        df_filtered = df[df[\"account\"] == input.account()]\n        return dist_plot(df_filtered)\n\n    @render_plotly\n    def metric():\n        df_filtered = df[df[\"account\"] == input.account()]\n        if input.metric() == \"ROC Curve\":\n            return plot_auc_curve(df_filtered, \"is_electronics\", \"training_score\")\n        else:\n            return plot_precision_recall_curve(\n                df_filtered, \"is_electronics\", \"training_score\"\n            )\n\nWe told Shiny what to do\nWe didn’t tell Shiny when to do it"
+  },
+  {
+    "objectID": "index.html#how-do-other-frameworks-work",
+    "href": "index.html#how-do-other-frameworks-work",
+    "title": "Effortless web apps with Shiny",
+    "section": "How do other frameworks work?",
+    "text": "How do other frameworks work?\n\nStreamlit: re-render everything everywhere all the time\nDash/Gradio/Solara: Event-handling"
+  },
+  {
+    "objectID": "index.html#event-driven-programming",
+    "href": "index.html#event-driven-programming",
+    "title": "Effortless web apps with Shiny",
+    "section": "Event driven programming",
+    "text": "Event driven programming\n\nManually define which behaviour triggers callback function\nYou have to do it\nEasy to get wrong\nHard to tell when you’ve gotten it wrong"
+  },
+  {
+    "objectID": "index.html#whats-a-better-way",
+    "href": "index.html#whats-a-better-way",
+    "title": "Effortless web apps with Shiny",
+    "section": "What’s a better way?",
+    "text": "What’s a better way?\n\nGeneric DAG"
+  },
+  {
+    "objectID": "index.html#shinys-strategy",
+    "href": "index.html#shinys-strategy",
+    "title": "Effortless web apps with Shiny",
+    "section": "Shiny’s Strategy",
+    "text": "Shiny’s Strategy\n\nInfer the relationships between components\nBuild a computation graph\nUse graph to minimally re-execute your application"
+  },
+  {
+    "objectID": "index.html#does-that-really-work",
+    "href": "index.html#does-that-really-work",
+    "title": "Effortless web apps with Shiny",
+    "section": "Does that really work?",
+    "text": "Does that really work?\n\nFor this to work, the inference has to be 100% reliable\nOnly useful if you understand and trust the inference"
+  },
+  {
+    "objectID": "index.html#runtime-tracing",
+    "href": "index.html#runtime-tracing",
+    "title": "Effortless web apps with Shiny",
+    "section": "Runtime tracing",
+    "text": "Runtime tracing\n\nWatch what components ask for\nKeep track of those relationships\nUse relationships to trigger rendering"
+  },
+  {
+    "objectID": "index.html#simplest-app",
+    "href": "index.html#simplest-app",
+    "title": "Effortless web apps with Shiny",
+    "section": "Simplest app",
+    "text": "Simplest app\n#| standalone: true\n#| components: [viewer]\n#| layout: horizontal\n#| viewerHeight: 500\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
+  },
+  {
+    "objectID": "index.html#application-code",
+    "href": "index.html#application-code",
+    "title": "Effortless web apps with Shiny",
+    "section": "Application code",
+    "text": "Application code\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
+  },
+  {
+    "objectID": "index.html#rendering-function-is-triggered",
+    "href": "index.html#rendering-function-is-triggered",
+    "title": "Effortless web apps with Shiny",
+    "section": "Rendering function is triggered",
+    "text": "Rendering function is triggered\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
+  },
+  {
+    "objectID": "index.html#renderer-needs-input",
+    "href": "index.html#renderer-needs-input",
+    "title": "Effortless web apps with Shiny",
+    "section": "Renderer needs input",
+    "text": "Renderer needs input\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
+  },
+  {
+    "objectID": "index.html#get-input-value",
+    "href": "index.html#get-input-value",
+    "title": "Effortless web apps with Shiny",
+    "section": "Get input value",
+    "text": "Get input value\nfrom shiny.express import render, ui, input\n\nui.input_slider(\"n\", \"N\", 0, 100, 20)\n\n\n@render.text\ndef txt():\n    return f\"n*2 is {input.n() * 2}\""
+  },
+  {
+    "objectID": "index.html#reactive-graph",
+    "href": "index.html#reactive-graph",
+    "title": "Effortless web apps with Shiny",
+    "section": "Reactive graph",
+    "text": "Reactive graph\n\n\n\n\n\n\n\n\n\n\nS\n\nInput\n\n\n\nSc\n\nOutput\n\n\n\nS-&gt;Sc"
+  },
+  {
+    "objectID": "index.html#drawing-our-application-graph",
+    "href": "index.html#drawing-our-application-graph",
+    "title": "Effortless web apps with Shiny",
+    "section": "Drawing our application graph",
+    "text": "Drawing our application graph"
+  },
+  {
+    "objectID": "index.html#start",
+    "href": "index.html#start",
+    "title": "Effortless web apps with Shiny",
+    "section": "Start",
+    "text": "Start\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#draw-metric-plot",
+    "href": "index.html#draw-metric-plot",
+    "title": "Effortless web apps with Shiny",
+    "section": "Draw metric plot",
+    "text": "Draw metric plot\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#get-inputs",
+    "href": "index.html#get-inputs",
+    "title": "Effortless web apps with Shiny",
+    "section": "Get inputs",
+    "text": "Get inputs\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#draw-dist-plot",
+    "href": "index.html#draw-dist-plot",
+    "title": "Effortless web apps with Shiny",
+    "section": "Draw dist plot",
+    "text": "Draw dist plot\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#get-inputs-1",
+    "href": "index.html#get-inputs-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Get inputs",
+    "text": "Get inputs\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#complete-graph",
+    "href": "index.html#complete-graph",
+    "title": "Effortless web apps with Shiny",
+    "section": "Complete graph",
+    "text": "Complete graph\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#account-input-changes",
+    "href": "index.html#account-input-changes",
+    "title": "Effortless web apps with Shiny",
+    "section": "Account input changes",
+    "text": "Account input changes\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#invalidate",
+    "href": "index.html#invalidate",
+    "title": "Effortless web apps with Shiny",
+    "section": "Invalidate",
+    "text": "Invalidate\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#forget-dependencies",
+    "href": "index.html#forget-dependencies",
+    "title": "Effortless web apps with Shiny",
+    "section": "Forget dependencies",
+    "text": "Forget dependencies\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#draw-metric-plot-1",
+    "href": "index.html#draw-metric-plot-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Draw metric plot",
+    "text": "Draw metric plot\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#get-inputs-2",
+    "href": "index.html#get-inputs-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Get inputs",
+    "text": "Get inputs\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#draw-dist-plot-1",
+    "href": "index.html#draw-dist-plot-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Draw dist plot",
+    "text": "Draw dist plot\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot"
+  },
+  {
+    "objectID": "index.html#get-inputs-3",
+    "href": "index.html#get-inputs-3",
+    "title": "Effortless web apps with Shiny",
+    "section": "Get inputs",
+    "text": "Get inputs\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#complete-graph-1",
+    "href": "index.html#complete-graph-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Complete graph",
+    "text": "Complete graph\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#metric-input-changes",
+    "href": "index.html#metric-input-changes",
+    "title": "Effortless web apps with Shiny",
+    "section": "Metric input changes",
+    "text": "Metric input changes\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#invalidate-downstream",
+    "href": "index.html#invalidate-downstream",
+    "title": "Effortless web apps with Shiny",
+    "section": "Invalidate downstream",
+    "text": "Invalidate downstream\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#draw-metric-plot-2",
+    "href": "index.html#draw-metric-plot-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Draw metric plot",
+    "text": "Draw metric plot\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#get-inputs-4",
+    "href": "index.html#get-inputs-4",
+    "title": "Effortless web apps with Shiny",
+    "section": "Get inputs",
+    "text": "Get inputs\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#complete-graph-2",
+    "href": "index.html#complete-graph-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Complete graph",
+    "text": "Complete graph\n\n\n\n\n\n\n\n\n\n\nC\n\nMetric\nSelector\n\n\n\nSc\n\nMetric Plot\n\n\n\nC-&gt;Sc\n\n\n\n\n\nSl\n\nAccount\nSelector\n\n\n\nSl-&gt;Sc\n\n\n\n\n\nM\n\nDist Plot\n\n\n\nSl-&gt;M"
+  },
+  {
+    "objectID": "index.html#graphs-can-change",
+    "href": "index.html#graphs-can-change",
+    "title": "Effortless web apps with Shiny",
+    "section": "Graphs can change",
+    "text": "Graphs can change\n#| standalone: true\n#| components: [viewer]\n#| layout: horizontal\n#| viewerHeight: 500\nfrom shiny import Inputs, Outputs, Session, App, reactive, render, req, ui\nimport random\n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.input_radio_buttons(\n            \"choice\", \"Which slider?\", choices=[\"Slider 1\", \"Slider 2\"]\n        ),\n        ui.input_slider(\"slider_1\", \"Slider 1\", 0, 100, 15),\n        ui.input_slider(\"slider_2\", \"Slider 2\", 0, 100, 45),\n    ),\n    ui.card({\"style\": \"font-size: larger\"}, ui.output_text(\"txt\")),\n)\n\n\ndef server(input: Inputs, output: Outputs, session: Session):\n    @render.text\n    def txt():\n        random_number = random.randint(0, 100)\n        if input.choice() == \"Slider 1\":\n            return f\"Slider 1 is {input.slider_1()}, a random number is {random_number}\"\n        else:\n            return f\"Slider 2 is {input.slider_2()}, a random number is {random_number}\"\n\n\napp = App(app_ui, server)"
+  },
+  {
+    "objectID": "index.html#different-graphs",
+    "href": "index.html#different-graphs",
+    "title": "Effortless web apps with Shiny",
+    "section": "Different graphs",
+    "text": "Different graphs\n@render.text\ndef txt():\n    random_number = random.randint(0, 100)\n    if input.choice() == \"Slider 1\":\n        return (\n            f\"Slider 1 is {input.slider_1()}, \"\n            f\"a random number is {random_number}\"\n        )\n    else: \n        return (\n            f\"Slider 2 is {input.slider_2()}, \"\n            f\"a random number is {random_number}\"\n        )"
+  },
+  {
+    "objectID": "index.html#initial-state",
+    "href": "index.html#initial-state",
+    "title": "Effortless web apps with Shiny",
+    "section": "Initial state",
+    "text": "Initial state\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#calculate-text",
+    "href": "index.html#calculate-text",
+    "title": "Effortless web apps with Shiny",
+    "section": "Calculate Text",
+    "text": "Calculate Text\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#fetch-button-value",
+    "href": "index.html#fetch-button-value",
+    "title": "Effortless web apps with Shiny",
+    "section": "Fetch button value",
+    "text": "Fetch button value\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#fetch-slider-1",
+    "href": "index.html#fetch-slider-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Fetch Slider 1",
+    "text": "Fetch Slider 1\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#complete",
+    "href": "index.html#complete",
+    "title": "Effortless web apps with Shiny",
+    "section": "Complete",
+    "text": "Complete\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#slider-2-changes",
+    "href": "index.html#slider-2-changes",
+    "title": "Effortless web apps with Shiny",
+    "section": "Slider 2 changes",
+    "text": "Slider 2 changes\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#nothing-happens",
+    "href": "index.html#nothing-happens",
+    "title": "Effortless web apps with Shiny",
+    "section": "Nothing happens",
+    "text": "Nothing happens\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#slider-1-changes",
+    "href": "index.html#slider-1-changes",
+    "title": "Effortless web apps with Shiny",
+    "section": "Slider 1 changes",
+    "text": "Slider 1 changes\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#invalidate-1",
+    "href": "index.html#invalidate-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Invalidate",
+    "text": "Invalidate\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#calculate-text-1",
+    "href": "index.html#calculate-text-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Calculate Text",
+    "text": "Calculate Text\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#fetch-button-value-1",
+    "href": "index.html#fetch-button-value-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Fetch button value",
+    "text": "Fetch button value\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#fetch-slider-1-1",
+    "href": "index.html#fetch-slider-1-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Fetch Slider 1",
+    "text": "Fetch Slider 1\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#complete-1",
+    "href": "index.html#complete-1",
+    "title": "Effortless web apps with Shiny",
+    "section": "Complete",
+    "text": "Complete\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#button-changes",
+    "href": "index.html#button-changes",
+    "title": "Effortless web apps with Shiny",
+    "section": "Button changes",
+    "text": "Button changes\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\nS1-&gt;T\n\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#invalidate-2",
+    "href": "index.html#invalidate-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Invalidate",
+    "text": "Invalidate\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#calculate-text-2",
+    "href": "index.html#calculate-text-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Calculate Text",
+    "text": "Calculate Text\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#fetch-button-value-2",
+    "href": "index.html#fetch-button-value-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Fetch button value",
+    "text": "Fetch button value\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2"
+  },
+  {
+    "objectID": "index.html#fetch-slider-2",
+    "href": "index.html#fetch-slider-2",
+    "title": "Effortless web apps with Shiny",
+    "section": "Fetch Slider 2!",
+    "text": "Fetch Slider 2!\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2\n\n\n\nS2-&gt;T"
+  },
+  {
+    "objectID": "index.html#different-graph",
+    "href": "index.html#different-graph",
+    "title": "Effortless web apps with Shiny",
+    "section": "Different graph",
+    "text": "Different graph\n\n\n\n\n\n\n\n\n\n\nC\n\nButtons\n\n\n\nT\n\nText Output\n\n\n\nC-&gt;T\n\n\n\n\n\nS1\n\nSlider 1\n\n\n\n\nS2\n\nSlider 2\n\n\n\nS2-&gt;T"
+  },
+  {
+    "objectID": "index.html#reactivity-scales",
+    "href": "index.html#reactivity-scales",
+    "title": "Effortless web apps with Shiny",
+    "section": "Reactivity scales",
+    "text": "Reactivity scales\n\nEvery Shiny app uses this pattern\nWorks for dynamic UIs\nLazy and efficient"
+  },
+  {
     "objectID": "index.html#saving-and-reusing-calculated-values",
     "href": "index.html#saving-and-reusing-calculated-values",
     "title": "Effortless web apps with Shiny",
